@@ -1,0 +1,7 @@
+$brands: "facebook" #1877f2, "line" #00c300
+
+@each $name, $color in $brands
+  .has-background-#{$name}
+    background-color: $color !important
+  .has-text-#{$name}
+    background-color: $color !important

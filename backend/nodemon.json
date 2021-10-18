@@ -3,6 +3,7 @@
     "NODE_ENV": "development",
     "PORT": 3001,
     "SESSION_SECRET": "RandomeMe",
+    "FRONTEND_URL": "http://localhost:3000",
     "REDIS_URL": "redis://localhost:6379",
     "MONGODB_URL": "mongodb://localhost:27017/nadtiw",
     "FACEBOOK_APP_ID": "305178101040131",

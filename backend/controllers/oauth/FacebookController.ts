@@ -1,4 +1,5 @@
 import passport from 'passport'
+import passportRedirectOptions from '../../modules/passportRedirectOptions'
 
 const scope = [
   'email',
@@ -11,7 +12,4 @@ const scope = [
 
 export const request = passport.authenticate('facebook', { scope })
 
-export const callback = passport.authenticate('facebook', {
-  successRedirect: '/?message=auth_ok',
-  failureRedirect: '/?message=auth_fail'
-})
+export const callback = passport.authenticate('facebook', passportRedirectOptions)

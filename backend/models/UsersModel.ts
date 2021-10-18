@@ -1,5 +1,4 @@
 import { Schema as MongooseSchema, model, Document } from 'mongoose'
-import validator from 'validator'
 
 export const usernameRegex = /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
 
@@ -13,7 +12,6 @@ export interface UserDocument extends Document {
   social?: {
     facebook?: string
   }
-  email?: string
   avatarUrl?: string
   fullName?: string
   birthDate?: Date
@@ -48,14 +46,6 @@ const schema = new MongooseSchema({
     discord: {
       type: String,
       maxlength: 500
-    }
-  },
-  email: {
-    type: String,
-    maxlength: 200,
-    validate: {
-      validator: validator.isEmail,
-      message: 'ที่อยู่อีเมลไม่ถูกต้อง'
     }
   },
   avatarUrl: {
