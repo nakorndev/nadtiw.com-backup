@@ -4,6 +4,27 @@ import FacebookStrategy from '../strategies/FacebookStrategy'
 import LineStrategy from '../strategies/LineStrategy'
 import DiscordStrategy from '../strategies/DiscordStrategy'
 
+export const providers = [
+  {
+    key: 'facebook',
+    scope: [
+      'public_profile',
+      'user_birthday',
+      'user_gender',
+      'user_link',
+      'user_location'
+    ]
+  },
+  {
+    key: 'line',
+    scope: 'profile'
+  },
+  {
+    key: 'discord',
+    scope: ''
+  }
+]
+
 passport.use(FacebookStrategy)
 passport.use(LineStrategy)
 passport.use(DiscordStrategy)

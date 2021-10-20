@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCog,
-  faSignInAlt, faSignOutAlt
+  faShareAlt,
+  faSignInAlt, faSignOutAlt, faUser, faUserEdit
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faDiscord,
@@ -17,7 +18,10 @@ library.add(
   faLine,
   faDiscord,
   faSignOutAlt,
-  faCog
+  faCog,
+  faUser,
+  faUserEdit,
+  faShareAlt
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

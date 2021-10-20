@@ -1,17 +1,61 @@
 import express from 'express'
-import { request as facebookRequest, callback as facebookCallback } from '../controllers/oauth/FacebookController'
-import { request as lineRequest, callback as lineCallback } from '../controllers/oauth/LineController'
-import { request as discordRequest, callback as discordCallback } from '../controllers/oauth/DiscordController'
+import passport from 'passport'
+import { capitalize } from 'lodash'
+import { promisify } from 'util'
+import { providers } from '../core/PassportCore'
 
 const router = express.Router()
 
-router.get('/facebook', facebookRequest)
-router.get('/facebook/callback', facebookCallback)
+for (const { key, scope } of providers) {
+  router.get(
+    `/auth/${key}`,
+    (req, res, next) => {
+      req.flash('authMode', true)
+      req.flash('redirectUrl', process.env.FRONTEND_URL + '/')
+      return next()
+    },
+    passport.authorize(key, { scope })
+  )
 
-router.get('/line', lineRequest)
-router.get('/line/callback', lineCallback)
+  router.get(
+    `/connect/${key}`,
+    (req, res, next) => {
+      req.flash('redirectUrl', process.env.FRONTEND_URL + '/settings?tab=connect')
+      return next()
+    },
+    passport.authorize(key, { scope })
+  )
 
-router.get('/discord', discordRequest)
-router.get('/discord/callback', discordCallback)
+  router.get(
+    `/callback/${key}`,
+    (req, res, next) => {
+      passport.authorize(key, (err, user, info) => {
+        const redirectUrl = new URL(req.flash('redirectUrl')[0] ?? process.env.FRONTEND_URL)
+        const authMode = req.flash('authMode')[0]
+        try {
+          if (err) throw err
+          if (!user) {
+            redirectUrl.searchParams.append('message', info.message ?? info ?? 'unexpected_error')
+            return res.redirect(redirectUrl.toString())
+          }
+          if (authMode) {
+            req.login(user, (err) => {
+              if (err) throw err
+              redirectUrl.searchParams.append('message', 'auth_ok')
+              return res.redirect(redirectUrl.toString())
+            })
+          } else {
+            redirectUrl.searchParams.append('message', 'connect_ok')
+            redirectUrl.searchParams.append('provider', capitalize(key))
+            return res.redirect(redirectUrl.toString())
+          }
+        } catch (error) {
+          redirectUrl.searchParams.append('message', 'unexpected_error')
+          return res.redirect(redirectUrl.toString())
+        }
+      })(req, res, next)
+    }
+  )
+}
 
 export default router

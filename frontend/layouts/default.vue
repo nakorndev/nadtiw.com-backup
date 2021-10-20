@@ -23,8 +23,11 @@ export default Vue.extend({
         case 'auth_ok':
           this.$snackbarSuccess(`ยินดีต้อนรับคุณ ${this.$store.state.auth.data?.displayName}`)
           break
-        case 'auth_fail':
-          this.$snackbarError('พบปัญหาบางอย่างไม่คาดคิดระหว่างการเข้าสู่ระบบ กรุณาลองใหม่ภายหลัง')
+        case 'connect_ok':
+          this.$snackbarSuccess(`คุณได้เชื่อมต่อบัญชีกับ ${this.$route.query.provider} เสร็จสิ้น`)
+          break
+        case 'user_exists':
+          this.$snackbarError('พบการเชื่อมต่อร่วมกับบัญชีอื่นอยู่แล้ว')
           break
         case 'need_auth':
           this.$snackbarError('กรุณาเข้าสู่ระบบก่อนดำเนินการต่อ')

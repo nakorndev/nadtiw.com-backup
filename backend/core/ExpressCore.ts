@@ -3,6 +3,7 @@ import session, { SessionOptions } from 'express-session'
 import ms from 'ms'
 import path from 'path'
 import connectRedis from 'connect-redis'
+import flash from 'connect-flash'
 import PassportCore from './PassportCore'
 import { createClient } from 'redis'
 
@@ -26,6 +27,7 @@ export default (app) => {
   app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
   app.use(express.json())
   app.use(session(sessionOptions))
+  app.use(flash())
   app.use(PassportCore.initialize())
   app.use(PassportCore.session())
 }

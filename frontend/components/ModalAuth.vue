@@ -31,9 +31,22 @@ import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
     socials: [
-      { label: 'Facebook', icon: 'facebook', class: 'has-background-facebook', href: '/api/oauth/facebook' },
-      { label: 'Line', icon: 'line', class: 'has-background-line', href: '/api/oauth/line' },
-      { label: 'Discord', icon: 'discord', class: 'has-background-discord', href: '/api/oauth/discord' }
+      {
+        label: 'Facebook',
+        icon: 'facebook',
+        class: 'has-background-facebook',
+        href: '/api/oauth/auth/facebook'
+      }, {
+        label: 'Line',
+        icon: 'line',
+        class: 'has-background-line',
+        href: '/api/oauth/auth/line'
+      }, {
+        label: 'Discord',
+        icon: 'discord',
+        class: 'has-background-discord',
+        href: '/api/oauth/auth/discord'
+      }
     ]
   })
 })
