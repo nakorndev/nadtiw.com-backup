@@ -2,7 +2,8 @@ import Vue from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faSignInAlt
+  faCog,
+  faSignInAlt, faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faDiscord,
@@ -14,7 +15,9 @@ library.add(
   faSignInAlt,
   faFacebook,
   faLine,
-  faDiscord
+  faDiscord,
+  faSignOutAlt,
+  faCog
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

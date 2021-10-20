@@ -1,4 +1,7 @@
 export default {
+  env: {
+    backendUrl: process.env.BACKEND_URL ?? 'http://localhost:3001'
+  },
   head: {
     title: 'frontend',
     htmlAttrs: {
@@ -21,7 +24,8 @@ export default {
 
   plugins: [
     './plugins/fontawesome.client.ts',
-    './plugins/snackbar.client.ts'
+    './plugins/snackbar.client.ts',
+    './plugins/global.ts'
   ],
 
   components: true,

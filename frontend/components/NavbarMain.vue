@@ -6,7 +6,13 @@
       BNavbarItem(v-if="loading" tag="div")
         BSkeleton(width="200px" height="30px" animated)
       BNavbarDropdown(v-else-if="auth" :label="auth.displayName")
-        BNavbarItem(@click="onLogout") ออกจากระบบ
+        BNavbarItem(tag="NLink" to="/settings")
+          BIcon(icon="cog")
+          span การตั้งค่าบัญชี
+        .dropdown-divider
+        BNavbarItem(@click="onLogout")
+          BIcon(icon="sign-out-alt")
+          span ออกจากระบบ
       BNavbarItem(v-else tag="div")
         .buttons
           a.button.is-primary(@click="$store.commit('auth/openModal')")
@@ -38,13 +44,7 @@ export default Vue.extend({
       }
     } finally {
       this.loading = false
-    }
-    if (this.$route.query.message === 'auth_ok') {
-      this.$snackbarSuccess(`ยินดีต้อนรับคุณ ${this.auth.displayName}`)
-      this.$router.replace({ query: {} })
-    }
-    if (this.$route.query.message === 'auth_fail') {
-      this.$snackbarError('พบปัญหาบางอย่างไม่คาดคิดระหว่างการเข้าสู่ระบบ กรุณาลองใหม่ภายหลัง')
+      this.$emit('login-checked')
     }
   },
   methods: {
@@ -53,6 +53,7 @@ export default Vue.extend({
       try {
         await this.$axios.delete('/auth')
         this.$store.commit('auth/deleteData')
+        this.$router.push('/')
         this.$snackbarSuccess('คุณได้ออกจากระบบเสร็จสิ้น')
       } catch (error) {
         this.$snackbarError(error)
