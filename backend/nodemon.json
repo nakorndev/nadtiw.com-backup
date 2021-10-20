@@ -11,7 +11,10 @@
     "FACEBOOK_APP_CALLBACK": "http://localhost:3001/oauth/facebook/callback",
     "LINE_CHANNEL_ID": "1656541325",
     "LINE_CHANNEL_SECRET": "196981065cd30e861c2e17ee1505e6bb",
-    "LINE_CHANNEL_CALLBACk": "http://localhost:3001/oauth/line/callback"
+    "LINE_CHANNEL_CALLBACk": "http://localhost:3001/oauth/line/callback",
+    "DISCORD_CLIENT_ID": "900217249720311838",
+    "DISCORD_CLIENT_SECRET": "-aVkSfze8MpAB51V0J60L0CYYkl9kMIH",
+    "DISCORD_CLIENT_CALLBACK": "http://localhost:3001/oauth/discord/callback"
   },
   "exec": "node --inspect=9001 --require ts-node/register express.ts",
   "ext": "js,json,ts"

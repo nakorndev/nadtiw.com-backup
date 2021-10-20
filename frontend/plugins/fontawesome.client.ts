@@ -5,6 +5,7 @@ import {
   faSignInAlt
 } from '@fortawesome/free-solid-svg-icons'
 import {
+  faDiscord,
   faFacebook,
   faLine
 } from '@fortawesome/free-brands-svg-icons'
@@ -12,7 +13,8 @@ import {
 library.add(
   faSignInAlt,
   faFacebook,
-  faLine
+  faLine,
+  faDiscord
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

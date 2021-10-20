@@ -5,7 +5,7 @@
     template(#end)
       BNavbarItem(v-if="loading" tag="div")
         BSkeleton(width="200px" height="30px" animated)
-      BNavbarDropdown(v-else-if="auth" :label="auth.fullName")
+      BNavbarDropdown(v-else-if="auth" :label="auth.displayName")
         BNavbarItem(@click="onLogout") ออกจากระบบ
       BNavbarItem(v-else tag="div")
         .buttons
@@ -28,15 +28,19 @@ export default Vue.extend({
   }),
   async mounted () {
     try {
-      const { data } = await this.$axios.get('/auth')
+      const { data } = await this.$axios.get('/auth', {
+        progress: false
+      })
       this.$store.commit('auth/setData', data)
-    } catch (error) {
-      this.$snackbarError(error)
+    } catch (error: any) {
+      if (error?.response?.status !== 401) {
+        this.$snackbarError(error)
+      }
     } finally {
       this.loading = false
     }
     if (this.$route.query.message === 'auth_ok') {
-      this.$snackbarSuccess(`ยินดีต้อนรับคุณ ${this.auth.fullName}`)
+      this.$snackbarSuccess(`ยินดีต้อนรับคุณ ${this.auth.displayName}`)
       this.$router.replace({ query: {} })
     }
     if (this.$route.query.message === 'auth_fail') {

@@ -2,7 +2,6 @@ import passport from 'passport'
 import passportRedirectOptions from '../../modules/passportRedirectOptions'
 
 const scope = [
-  'email',
   'public_profile',
   'user_birthday',
   'user_gender',

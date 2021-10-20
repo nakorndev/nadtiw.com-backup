@@ -17,7 +17,6 @@ declare var process: {
 const profileFields = [
   'id',
   'birthday',
-  'email',
   'gender',
   'link',
   'location',
@@ -47,7 +46,7 @@ const verify: VerifyFunction = async (accessToken, refreshToken, profile, next) 
       user = await UsersModel.create({
         'oauth.facebook': profile._json.id,
         'social.facebook': profile._json.link,
-        fullName: profile._json.first_name + ' ' + profile._json.last_name,
+        displayName: profile._json.first_name + ' ' + profile._json.last_name,
         birthDate: DateTime.fromFormat(profile._json.birthday, 'MM/dd/yyyy', { zone: 'utc' }).toJSDate(),
         gender: selectGender(profile._json.gender),
         location: profile._json.location.name

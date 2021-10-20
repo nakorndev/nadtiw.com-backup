@@ -10,7 +10,7 @@ export interface AuthData {
     facebook?: string
   }
   avatarUrl?: string
-  fullName?: string
+  displayName?: string
   birthDate?: Date
   gender: 'male' | 'female' | 'none'
   location?: string

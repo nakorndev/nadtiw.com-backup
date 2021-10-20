@@ -14,7 +14,7 @@ const verify = async (accessToken, refreshToken, profile, next) => {
     if (!user) {
       user = await UsersModel.create({
         'oauth.line': profile._json.userId,
-        fullName: profile._json.displayName
+        displayName: profile._json.displayName
       }) as UserDocument
       const avatarUrl = profile._json.pictureUrl
       if (avatarUrl) {

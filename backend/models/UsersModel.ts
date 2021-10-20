@@ -13,7 +13,7 @@ export interface UserDocument extends Document {
     facebook?: string
   }
   avatarUrl?: string
-  fullName?: string
+  displayName?: string
   birthDate?: Date
   gender: 'male' | 'female' | 'none'
   location?: string
@@ -52,7 +52,7 @@ const schema = new MongooseSchema({
     type: String,
     maxlength: 500
   },
-  fullName: {
+  displayName: {
     type: String,
     maxlength: 200
   },

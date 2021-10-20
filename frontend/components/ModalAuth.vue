@@ -12,8 +12,8 @@
           .has-text-centered
             a.is-flex.mb-2.button.is-primary(
               v-for="social of socials"
-              :href="`/api/oauth/${social.href}`"
-              :class="`has-background-${social.class}`")
+              :href="social.href"
+              :class="social.class")
               BIcon(pack="fab" :icon="social.icon")
               span เข้าสู่ระบบผ่าน {{ social.label }}
 </template>
@@ -23,8 +23,9 @@ import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
     socials: [
-      { label: 'Facebook', icon: 'facebook', class: 'facebook', href: 'facebook' },
-      { label: 'Line', icon: 'line', class: 'line', href: 'line' }
+      { label: 'Facebook', icon: 'facebook', class: 'has-background-facebook', href: '/api/oauth/facebook' },
+      { label: 'Line', icon: 'line', class: 'has-background-line', href: '/api/oauth/line' },
+      { label: 'Discord', icon: 'discord', class: 'has-background-discord', href: '/api/oauth/discord' }
     ]
   })
 })
