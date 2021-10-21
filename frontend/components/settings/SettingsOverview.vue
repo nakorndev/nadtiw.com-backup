@@ -2,13 +2,17 @@
   div
     a.button.is-danger(@click="deleteUser")
       BIcon(icon="trash-alt")
-      span ลบบัญชีออก
+      span ลบบัญชี
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 
 export default Vue.extend({
+  computed: mapState({
+    auth: (state: any) => state.auth.data
+  }),
   methods: {
     deleteUser () {
       this.$buefy.dialog.confirm({

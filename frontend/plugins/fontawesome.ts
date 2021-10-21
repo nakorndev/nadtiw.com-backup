@@ -13,7 +13,7 @@ import {
   faMapMarkerAlt,
   faMars,
   faShareAlt,
-  faSignInAlt, faSignOutAlt, faTrashAlt, faUser, faUserEdit, faVenus
+  faSignInAlt, faSignOutAlt, faTimes, faTrashAlt, faUpload, faUser, faUserEdit, faVenus, faWindowClose
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faDiscord,
@@ -41,7 +41,9 @@ library.add(
   faExclamationCircle,
   faMars,
   faVenus,
-  faGenderless
+  faGenderless,
+  faUpload,
+  faTimes
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

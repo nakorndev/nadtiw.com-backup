@@ -1,5 +1,24 @@
 <template lang="pug">
   form(@submit.prevent="onSubmit")
+    .is-flex.is-align-items-center.mb-4
+      .is-avatar.is-medium.mr-3(
+        style="background-position: center; background-size: cover;"
+        :style="{ backgroundImage: `url(${avatarPreview ? avatarPreview : auth.avatarUrl})` }")
+      BField(label="เปลี่ยนรูปประจำตัว")
+        BUpload.file-label(
+          v-if="!input.avatarFile"
+          v-model="input.avatarFile"
+          @input="checkFileSize"
+          accept="image/*")
+          .file-cta
+            BIcon.file-icon(icon="upload")
+            span.file-label คลิกเพื่ออัปโหลด
+        BButton(
+          v-else
+          type="is-danger"
+          @click="input.avatarFile = undefined")
+            BIcon(icon="times")
+            span ยกเลิกการอัปโหลด
     BField#username(label="ชื่อผู้ใช้งาน (Username)")
       BInput(
         v-model="input.username"
@@ -75,6 +94,7 @@
 import Vue from 'vue'
 import { DateTime } from 'luxon'
 import { mapState } from 'vuex'
+import bytes from 'bytes'
 
 export default Vue.extend({
   props: {
@@ -83,14 +103,22 @@ export default Vue.extend({
       default: () => ({})
     }
   },
-  data: (): any => ({
-    input: {},
-    currentDate: null,
+  data: () => ({
+    input: {} as any,
+    currentDate: null as Date | null,
     loading: false
   }),
-  computed: mapState({
-    auth: (s: any) => s.auth.data
-  }),
+  computed: {
+    ...mapState({
+      auth: (state: any) => state.auth.data
+    }),
+    avatarPreview () {
+      if (this.input.avatarFile) {
+        return URL.createObjectURL(this.input.avatarFile)
+      }
+      return ''
+    }
+  },
   mounted () {
     this.currentDate = new Date()
     this.input = {
@@ -108,10 +136,28 @@ export default Vue.extend({
         return DateTime.fromJSDate(str).toLocaleString(DateTime.DATE_FULL)
       }
     },
+    checkFileSize (file) {
+      if (file.size > this.validations.avatarFile) {
+        this.$buefy.dialog.alert({
+          message: `ไม่สามารถเลือกไฟล์ที่ใหญ่กว่า ${bytes(this.validations.avatarFile)} ได้`,
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => {
+            this.input.avatarFile = undefined
+          }
+        })
+      }
+    },
     async onSubmit () {
       this.loading = true
       try {
-        const { data: user } = await this.$axios.post('/settings', this.input)
+        const formData = new FormData()
+        for (const [k, v] of Object.entries(this.input)) {
+          if (v) {
+            formData.append(k, v as any)
+          }
+        }
+        const { data: user } = await this.$axios.post('/settings', formData)
         this.$store.commit('auth/setData', user)
         this.$snackbarSuccess('ข้อมูลได้รับการอัพเดตเสร็จสิ้น')
       } catch (error) {

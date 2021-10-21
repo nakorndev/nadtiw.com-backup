@@ -20,9 +20,9 @@ export const actions = {
       commit('auth/setData', user)
     } catch (error: any) {
       if (error?.response?.status === 401) {
-        context.redirect('/?message=unexpected_error')
-      } else {
         commit('auth/deleteData')
+      } else {
+        context.redirect('/?message=unexpected_error')
       }
     }
   }

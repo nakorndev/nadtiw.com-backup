@@ -12,7 +12,7 @@ export const maxLengths = {
   socialDiscord: 500,
   displayName: 100,
   location: 100,
-  bio: 255
+  bio: 200
 }
 
 export interface UserDocument extends Document {

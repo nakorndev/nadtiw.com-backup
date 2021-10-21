@@ -1,18 +1,22 @@
 <template lang="pug">
-  BNavbar(wrapper-class="container" spaced)
+  BNavbar(wrapper-class="container" type="is-light" spaced shadow)
     template(#brand)
       BNavbarItem(tag="NLink" to="/") นัดติว.com
     template(#end)
       BNavbarItem(v-if="loading" tag="div")
         BSkeleton(width="200px" height="30px" animated)
-      BNavbarDropdown(v-if="auth" :label="auth.displayName")
-        BNavbarItem(tag="NLink" to="/settings")
-          BIcon(icon="cog")
-          span การตั้งค่าบัญชี
-        .dropdown-divider
-        BNavbarItem(@click="onLogout")
-          BIcon(icon="sign-out-alt")
-          span ออกจากระบบ
+      BNavbarDropdown(v-else-if="auth")
+        template(#label)
+          img.is-avatar.mr-2(:src="auth.avatarUrl")
+          span {{ auth.displayName }}
+        template(#default)
+          BNavbarItem(tag="NLink" to="/settings")
+            BIcon(icon="cog")
+            span การตั้งค่าบัญชี
+          .dropdown-divider
+          BNavbarItem(@click="onLogout")
+            BIcon(icon="sign-out-alt")
+            span ออกจากระบบ
       BNavbarItem(v-else tag="div")
         .buttons
           a.button.is-primary(@click="$store.commit('auth/openModal')")
