@@ -3,6 +3,7 @@ import ExpressCore from './core/ExpressCore'
 import ErrorHandlerCore from './core/ErrorHandlerCore'
 import OAuthRoute from './routes/OAuthRoute'
 import AuthRoute from './routes/AuthRoute'
+import SettingsRoute from './routes/SettingsRoute'
 import './core/DirectoryCore'
 import './core/MongooseCore'
 import './core/LuxonCore'
@@ -14,6 +15,7 @@ ExpressCore(app)
 
 app.use('/auth', AuthRoute)
 app.use('/oauth', OAuthRoute)
+app.use('/settings', SettingsRoute)
 
 app.use(ErrorHandlerCore)
 

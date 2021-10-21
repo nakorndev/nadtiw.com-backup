@@ -1,11 +1,11 @@
 export default {
   env: {
-    backendUrl: process.env.BACKEND_URL ?? 'http://localhost:3001'
+    BACKEND_URL: process.env.BACKEND_URL ?? 'http://localhost:3001'
   },
   head: {
     title: 'frontend',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'th'
     },
     meta: [
       { charset: 'utf-8' },
@@ -23,8 +23,9 @@ export default {
   ],
 
   plugins: [
-    './plugins/fontawesome.client.ts',
+    './plugins/fontawesome.ts',
     './plugins/snackbar.client.ts',
+    './plugins/luxon.ts',
     './plugins/global.ts'
   ],
 
@@ -50,7 +51,7 @@ export default {
     defaultNoticeQueue: false,
     defaultDialogConfirmText: 'ตกลง',
     defaultDialogCancelText: 'ยกเลิก',
-    defaultLocale: 'th-TH',
+    defaultLocale: 'th',
     defaultTimeFormatter: 'HH:mm',
     defaultTimeParser: 'HH:mm',
     defaultModalCanCancel: ['escape', 'outside', 'button']
@@ -64,7 +65,7 @@ export default {
   },
 
   axios: {
-    baseURL: '/api/'
+    prefix: '/api/'
   },
 
   router: {

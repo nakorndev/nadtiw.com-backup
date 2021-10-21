@@ -5,7 +5,7 @@
     template(#end)
       BNavbarItem(v-if="loading" tag="div")
         BSkeleton(width="200px" height="30px" animated)
-      BNavbarDropdown(v-else-if="auth" :label="auth.displayName")
+      BNavbarDropdown(v-if="auth" :label="auth.displayName")
         BNavbarItem(tag="NLink" to="/settings")
           BIcon(icon="cog")
           span การตั้งค่าบัญชี
@@ -27,26 +27,11 @@ import { AuthData } from '~/store/auth'
 
 export default Vue.extend({
   data: () => ({
-    loading: true
+    loading: false
   }),
   computed: mapState({
     auth: (state: any): AuthData => state.auth.data
   }),
-  async mounted () {
-    try {
-      const { data } = await this.$axios.get('/auth', {
-        progress: false
-      })
-      this.$store.commit('auth/setData', data)
-    } catch (error: any) {
-      if (error?.response?.status !== 401) {
-        this.$snackbarError(error)
-      }
-    } finally {
-      this.loading = false
-      this.$emit('login-checked')
-    }
-  },
   methods: {
     async onLogout () {
       this.loading = true

@@ -12,6 +12,7 @@ export default Vue.extend({
   methods: {
     deleteUser () {
       this.$buefy.dialog.confirm({
+        hasIcon: true,
         title: 'การลบบัญชี',
         message: 'เมื่อคุณลบบัญชีแล้วจะทำให้ข้อมูลสูญหายทั้งหมด และไม่สามารถเรียกข้อมูลคืนได้ คุณแน่ใจหรือว่าต้องการลบบัญชีนี้?',
         cancelText: 'ยกเลิก',

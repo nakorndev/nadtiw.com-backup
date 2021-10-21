@@ -1,6 +1,19 @@
 import { Schema as MongooseSchema, model, Document } from 'mongoose'
 
-export const usernameRegex = /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
+export const usernameValidate = {
+  regex: /^(?![_])(?!.*[_]{2})[a-zA-Z0-9_]+(?<![_])$/,
+  minlength: 3,
+  maxlength: 20
+}
+
+export const maxLengths = {
+  socialFacebook: 500,
+  socialLine: 500,
+  socialDiscord: 500,
+  displayName: 100,
+  location: 100,
+  bio: 255
+}
 
 export interface UserDocument extends Document {
   username?: string
@@ -11,12 +24,15 @@ export interface UserDocument extends Document {
   }
   social?: {
     facebook?: string
+    line?: string
+    discord?: string
   }
   avatarUrl?: string
-  displayName?: string
+  displayName: string
   birthDate?: Date
   gender: 'male' | 'female' | 'none'
   location?: string
+  bio?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -25,7 +41,7 @@ const schema = new MongooseSchema({
   username: {
     type: String,
     validate: {
-      validator: v => usernameRegex.test(v),
+      validator: v => usernameValidate.regex.test(v),
       message: 'รูปแบบชื่อผู้ใช้งานไม่ถูกต้อง'
     }
   },
@@ -37,15 +53,15 @@ const schema = new MongooseSchema({
   social: {
     facebook: {
       type: String,
-      maxlength: 500
+      maxlength: maxLengths.socialFacebook
     },
     line: {
       type: String,
-      maxlength: 500
+      maxlength: maxLengths.socialLine
     },
     discord: {
       type: String,
-      maxlength: 500
+      maxlength: maxLengths.socialDiscord
     }
   },
   avatarUrl: {
@@ -54,7 +70,8 @@ const schema = new MongooseSchema({
   },
   displayName: {
     type: String,
-    maxlength: 200
+    required: true,
+    maxlength: maxLengths.displayName
   },
   birthDate: Date,
   gender: {
@@ -63,7 +80,11 @@ const schema = new MongooseSchema({
   },
   location: {
     type: String,
-    maxlength: 200
+    maxlength: maxLengths.location
+  },
+  bio: {
+    type: String,
+    maxlength: maxLengths.bio
   }
 }, { timestamps: true })
 
