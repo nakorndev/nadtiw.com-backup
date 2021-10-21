@@ -1,15 +1,16 @@
-import express from 'express'
+import express, { Request } from 'express'
 import passport from 'passport'
 import { capitalize } from 'lodash'
 import { promisify } from 'util'
 import { providers } from '../core/PassportCore'
+import AuthOnly from '../middleware/AuthOnly'
 
 const router = express.Router()
 
 for (const { key, scope } of providers) {
   router.get(
     `/auth/${key}`,
-    (req, res, next) => {
+    (req: Request, res, next) => {
       req.flash('authMode', true)
       req.flash('redirectUrl', process.env.FRONTEND_URL + '/')
       return next()
@@ -19,6 +20,7 @@ for (const { key, scope } of providers) {
 
   router.get(
     `/connect/${key}`,
+    AuthOnly,
     (req, res, next) => {
       req.flash('redirectUrl', process.env.FRONTEND_URL + '/settings?tab=connect')
       return next()

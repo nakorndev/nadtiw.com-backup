@@ -13,7 +13,7 @@ const options: StrategyOptionsWithRequest = {
 
 const verify = async (req: Request, accessToken, refreshToken, profile, next) => {
   try {
-    let user = await UsersModel.findOne({ 'oauth.discord': profile.id }) as UserDocument
+    let user = <UserDocument> await UsersModel.findOne({ 'oauth.discord': profile.id })
     if (req.user) {
       if (user) {
         return next(null, false, { message: 'user_exists' })
@@ -23,10 +23,10 @@ const verify = async (req: Request, accessToken, refreshToken, profile, next) =>
       return next(null, req.user)
     } else {
       if (!user) {
-        user = await UsersModel.create({
+        user = <UserDocument> await UsersModel.create({
           'oauth.discord': profile.id,
           displayName: `${profile.username}#${profile.discriminator}`
-        }) as UserDocument
+        })
         const avatarUrl = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`
         if (avatarUrl) {
           user.avatarUrl = await uploadAvatar(user, { url: avatarUrl })

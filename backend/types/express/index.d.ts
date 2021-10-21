@@ -1,6 +1,6 @@
 declare module Express {
   interface Request {
-    flash (key: string, data?: any): any
-    user: UserDocument
+    flash (key: string, data?: any): void
+    user: import('../../models/UsersModel').UserDocument
   }
 }

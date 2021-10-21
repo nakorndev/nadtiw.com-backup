@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCog,
   faShareAlt,
-  faSignInAlt, faSignOutAlt, faUser, faUserEdit
+  faSignInAlt, faSignOutAlt, faTrashAlt, faUser, faUserEdit
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faDiscord,
@@ -21,7 +21,8 @@ library.add(
   faCog,
   faUser,
   faUserEdit,
-  faShareAlt
+  faShareAlt,
+  faTrashAlt
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

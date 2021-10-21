@@ -11,7 +11,7 @@ const options = {
 
 const verify = async (req, accessToken, refreshToken, profile, next) => {
   try {
-    let user = await UsersModel.findOne({ 'oauth.line': profile._json.userId }) as UserDocument
+    let user = <UserDocument> await UsersModel.findOne({ 'oauth.line': profile._json.userId })
     if (req.user) {
       if (user) {
         return next(null, false, { message: 'user_exists' })
@@ -21,10 +21,10 @@ const verify = async (req, accessToken, refreshToken, profile, next) => {
       return next(null, req.user)
     } else {
       if (!user) {
-        user = await UsersModel.create({
+        user = <UserDocument> await UsersModel.create({
           'oauth.line': profile._json.userId,
           displayName: profile._json.displayName
-        }) as UserDocument
+        })
         const avatarUrl = profile._json.pictureUrl
         if (avatarUrl) {
           user.avatarUrl = await uploadAvatar(user, { url: avatarUrl })

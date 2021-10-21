@@ -3,20 +3,24 @@
     .column(:class="$global.columns.half")
       .box
         BTabs(type="is-toggle" vertical v-model="currentTab" @input="onTabChange")
-          BTabItem(label="ภาพรวมบัญชี" value="overview" icon="user")
-          BTabItem(label="แก้ไขโปรไฟล์" value="profile" icon="user-edit")
-          BTabItem(label="เชื่อมต่อแอป" value="connect" icon="share-alt")
+          BTabItem(label="ภาพรวมบัญชี" value="overview" icon="user" visible)
+            SettingsOverview
+          BTabItem(label="แก้ไขโปรไฟล์" value="profile" icon="user-edit" visible)
+            h1 Profile
+          BTabItem(label="เชื่อมต่อแอป" value="connect" icon="share-alt" visible)
             SettingsConnect
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import auth from '~/middleware/auth'
-import SettingsConnect from '~/components/SettingsConnect.vue'
+import SettingsConnect from '~/components/settings/SettingsConnect.vue'
+import SettingsOverview from '~/components/settings/SettingsOverview.vue'
 
 export default Vue.extend({
   components: {
-    SettingsConnect
+    SettingsConnect,
+    SettingsOverview
   },
   middleware: auth,
   data: () => ({

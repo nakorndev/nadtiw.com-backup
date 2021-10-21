@@ -40,7 +40,7 @@ const selectGender = (str: string) => {
 
 const verify: VerifyFunctionWithRequest = async (req: Request, accessToken, refreshToken, profile, next) => {
   try {
-    let user = await UsersModel.findOne({ 'oauth.facebook': profile._json.id }) as UserDocument
+    let user = <UserDocument> await UsersModel.findOne({ 'oauth.facebook': profile._json.id })
     if (req.user) {
       if (user) {
         return next(null, false, { message: 'user_exists' })
@@ -50,15 +50,15 @@ const verify: VerifyFunctionWithRequest = async (req: Request, accessToken, refr
       return next(null, req.user)
     } else {
       if (!user) {
-        user = await UsersModel.create({
+        user = <UserDocument> await UsersModel.create({
           'oauth.facebook': profile._json.id,
           'social.facebook': profile._json.link,
           displayName: profile._json.first_name + ' ' + profile._json.last_name,
           birthDate: DateTime.fromFormat(profile._json.birthday, 'MM/dd/yyyy', { zone: 'utc' }).toJSDate(),
           gender: selectGender(profile._json.gender),
           location: profile._json.location.name
-        }) as UserDocument
-        const avatarUrl = profile._json?.picture?.data?.url as string
+        })
+        const avatarUrl = <string> profile._json?.picture?.data?.url
         if (avatarUrl) {
           user.avatarUrl = await uploadAvatar(user, { url: avatarUrl })
           await user.save()

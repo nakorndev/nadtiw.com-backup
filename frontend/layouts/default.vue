@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    BLoading(:active="$store.state.loading")
     NavbarMain(@login-checked="showMessage")
     ModalAuth
     main.section
