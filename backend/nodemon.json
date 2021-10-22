@@ -6,15 +6,9 @@
     "FRONTEND_URL": "http://localhost:3000",
     "REDIS_URL": "redis://localhost:6379",
     "MONGODB_URL": "mongodb://localhost:27017/nadtiw",
-    "FACEBOOK_APP_ID": "305178101040131",
-    "FACEBOOK_APP_SECRET": "17c09ff943f5e6c5c896a727a635fe83",
-    "FACEBOOK_APP_CALLBACK": "http://localhost:3001/oauth/callback/facebook",
-    "LINE_CHANNEL_ID": "1656541325",
-    "LINE_CHANNEL_SECRET": "196981065cd30e861c2e17ee1505e6bb",
-    "LINE_CHANNEL_CALLBACK": "http://localhost:3001/oauth/callback/line",
     "DISCORD_CLIENT_ID": "900217249720311838",
     "DISCORD_CLIENT_SECRET": "-aVkSfze8MpAB51V0J60L0CYYkl9kMIH",
-    "DISCORD_CLIENT_CALLBACK": "http://localhost:3001/oauth/callback/discord"
+    "DISCORD_CLIENT_CALLBACK": "http://localhost:3001/oauth/discord/callback"
   },
   "exec": "node --inspect=9001 --require ts-node/register express.ts",
   "ext": "js,json,ts"

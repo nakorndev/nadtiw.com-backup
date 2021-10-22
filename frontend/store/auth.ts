@@ -1,41 +1,13 @@
-export interface AuthData {
-  _id: string
-  username?: string
-  oauth: {
-    facebook?: string
-    line?: string
-    discord?: string
-  }
-  social?: {
-    facebook?: string
-  }
-  avatarUrl?: string
-  displayName?: string
-  birthDate?: Date
-  gender: 'male' | 'female' | 'none'
-  location?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
 interface State {
-  data: AuthData | null
-  modal: boolean
+  data: Object | null
 }
 
 export const state = (): State => ({
-  data: null,
-  modal: false
+  data: null
 })
 
 export const mutations = {
-  openModal (state: State) {
-    state.modal = true
-  },
-  closeModal (state: State) {
-    state.modal = false
-  },
-  setData (state: State, data: AuthData) {
+  setData (state: State, data) {
     state.data = data
   },
   deleteData (state: State) {
