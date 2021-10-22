@@ -61,16 +61,18 @@
           BIcon(icon="genderless")
           span ไม่ระบุ
     BField#birthDate(label="วันเกิด (ปี ค.ศ.)")
-      BDatepicker(
-        v-model="input.birthDate"
-        :date-formatter="dateFormatter"
-        name="birth-date"
-        placeholder="เลือกวันเกิดของคุณ"
-        icon="calendar-day"
-        :max-date="currentDate"
-        open-on-focus
-        nearby-month-days
-        nearby-selectable-month-days)
+      .is-flex
+        BDatepicker(
+          v-model="input.birthDate"
+          :date-formatter="dateFormatter"
+          name="birth-date"
+          placeholder="เลือกวันเกิดของคุณ"
+          icon="calendar-day"
+          :max-date="currentDate"
+          open-on-focus
+          nearby-month-days
+          nearby-selectable-month-days)
+        BButton.ml-1(type="is-danger" @click="input.birthDate = undefined") ลบวันเกิด
     BField#location(label="ที่อยู่")
       BInput(
         v-model="input.location"

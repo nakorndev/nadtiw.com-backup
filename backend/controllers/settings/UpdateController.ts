@@ -19,6 +19,9 @@ const upload = multer({
 export default [
   upload.single('avatarFile'),
   async (req: Request, res: Response) => {
+    if (req.user.username && !req.body.username) {
+      throw new ErrorBuilder('ไม่สามารถลบชื่อผู้ใช้งานได้เมื่อเปิดใช้งานแล้ว')
+    }
     const userExists = await UsersModel.count({ username: req.body.username })
     if (userExists !== 0 && req.user.username !== req.body.username) {
       throw new ErrorBuilder('ชื่อผู้ใช้งานนี้ถูกใช้งานแล้ว กรุณาเลือกชื่ออื่น')
